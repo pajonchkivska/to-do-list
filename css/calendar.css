@@ -1,0 +1,48 @@
+.calendar {
+  max-width: 260px;
+  margin-left: -5px;
+  border: 11px solid rgb(244, 143, 177);
+}
+
+.calendar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: rgb(248, 187, 208);
+}
+
+.weekdays {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.weekdays div {
+  width: 200px;
+  text-align: center;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 30px);
+  gap: 5px;
+}
+
+.days div {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.days div.prev-month,
+.days div.next-month {
+  color:rgb(244, 143, 177);
+}
+
+.days div.selected {
+  background-color: pink;
+}

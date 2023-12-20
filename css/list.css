@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  scroll-behavior: smooth;
+  margin: auto;
+}
+
+.list__container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 50px;
+  width: 900px;
+  border-radius: 4px;
+  font-size: 16.8px;
+  margin-top: 50px;
+  padding-left: 50px;
+  margin-bottom: 50px;
+}
+
+.list__container-cards{
+    background-color: rgb(237, 243, 236);
+    border-radius: 8px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px 30px;
+    column-gap: 50px;
+    margin-top: 50px;
+}
+
+.list__container-title{
+  margin-left: 30px;
+  margin-top: -25px;
+}
+.list__input{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.plants__image{
+  height: 200px;
+  width: 400px;
+  margin-top: 50px;
+}
+
+ .workplace__image{
+  width: 250px;
+  height: 312px;
+ }
+
+ .container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1200px;
+  padding: 0 24px;
+  margin: auto;
+ }
+
+ .header__icon{
+  height: 78px;
+  width: 78px;
+  position: absolute;
+  top: 260px;
+  left: 170px;
+ }
+
+ .header__image{
+  height: 300px;
+  width: 100%;
+ }
+
+ .header__title{
+  margin-top: 50px;
+ }
+
+ .other__items{
+  padding-left: 0px;
+ }
+
+.list__tasks button:hover {
+  color: red; 
+}
+
+.list__tasks p {
+  display: flex; 
+  align-items: center; 
+}
+
+
+.list__tasks button {
+  margin-left: auto;
+}
