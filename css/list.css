@@ -86,7 +86,26 @@
   align-items: center; 
 }
 
-
 .list__tasks button {
   margin-left: auto;
+  padding: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.list__button{
+  color: rgb(137, 169, 131);
+  border-color:  rgb(137, 169, 131);
+  border-radius: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding: 2px;
+}
+
+.list__input{
+  border-radius: 3px;
+  border-color:  rgb(137, 169, 131);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding: 3px;
 }
