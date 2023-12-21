@@ -2,6 +2,9 @@
   max-width: 260px;
   margin-left: -5px;
   border: 11px solid rgb(244, 143, 177);
+  margin-top: 30px;
+  border-radius: 8px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .calendar__header {
@@ -45,4 +48,11 @@
 
 .days div.selected {
   background-color: pink;
+}
+
+.today {
+  border: 2px solid #000;
+  border-radius: 50%;
+  padding: 6px;
+  background-color: #fff;
 }

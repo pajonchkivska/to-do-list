@@ -1,11 +1,10 @@
-
 const monthYearElement = document.getElementById("month-year");
 const daysElement = document.getElementById("days");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 
 let currentDate = new Date();
-let selectedDate = null;
+let selectedDate = currentDate;
 
 function generateCalendar() {
   const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -24,6 +23,8 @@ function generateCalendar() {
   for (let i = 1; i <= daysInMonth; i++) {
     if (selectedDate && i === selectedDate.getDate() && currentDate.getMonth() === selectedDate.getMonth() && currentDate.getFullYear() === selectedDate.getFullYear()) {
       days += `<div class="selected">${i}</div>`;
+    } else if (i === new Date().getDate() && currentDate.getMonth() === new Date().getMonth() && currentDate.getFullYear() === new Date().getFullYear()) {
+      days += `<div class="today">${i}</div>`;
     } else {
       days += `<div>${i}</div>`;
     }
@@ -41,17 +42,26 @@ function generateCalendar() {
   });
 }
 
+function markToday() {
+  const today = daysElement.querySelector(".today");
+  if (today) {
+    today.classList.remove("today");
+  }
+  generateCalendar();
+}
+
 prevButton.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
-  generateCalendar();
+  markToday();
 });
 
 nextButton.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
-  generateCalendar();
+  markToday();
 });
 
 generateCalendar();
+
 
 
 const addButtons = document.querySelectorAll(".list__button");
@@ -70,6 +80,10 @@ function addTaskToCard(event, index) {
         const newTask = document.createElement("input");
         newTask.type = "checkbox";
         newTask.value = inputValue;
+
+        newTask.addEventListener("change", function() {
+            updateCheckboxState(index, newTask.checked, inputValue);
+        });
 
         const label = document.createElement("label");
         label.appendChild(newTask);
@@ -96,11 +110,23 @@ function addTaskToCard(event, index) {
 function updateLocalStorageForCard(index) {
     const taskList = taskLists[index];
     const tasks = [];
-    taskList.querySelectorAll("p").forEach(task => {
-        const taskText = task.querySelector("label").innerText;
-        tasks.push(taskText);
+    taskList.querySelectorAll("input[type='checkbox']").forEach(task => {
+        const taskText = task.nextSibling.textContent;
+        const isChecked = task.checked;
+        tasks.push({ text: taskText, checked: isChecked });
     });
     localStorage.setItem(`tasks_${index}`, JSON.stringify(tasks));
+}
+
+function updateCheckboxState(index, isChecked, text) {
+    const taskList = taskLists[index];
+    const checkboxes = taskList.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        if (checkbox.value === text) {
+            checkbox.checked = isChecked;
+            updateLocalStorageForCard(index);
+        }
+    });
 }
 
 addButtons.forEach((button, index) => {
@@ -111,20 +137,25 @@ addButtons.forEach((button, index) => {
     const storedTasks = JSON.parse(localStorage.getItem(`tasks_${index}`)) || [];
     const taskList = taskLists[index];
 
-    storedTasks.forEach(taskText => {
+    storedTasks.forEach(task => {
         const newTask = document.createElement("input");
         newTask.type = "checkbox";
-        newTask.value = taskText;
+        newTask.value = task.text;
+        newTask.checked = task.checked;
+
+        newTask.addEventListener("change", function() {
+            updateCheckboxState(index, newTask.checked, task.text);
+        });
 
         const label = document.createElement("label");
         label.appendChild(newTask);
-        label.appendChild(document.createTextNode(taskText));
+        label.appendChild(document.createTextNode(task.text));
 
         const deleteButton = document.createElement("button");
         deleteButton.innerText = "♡";
         deleteButton.addEventListener("click", function() {
             listItem.remove();
-            updateLocalStorage(index);
+            updateLocalStorageForCard(index);
         });
 
         const listItem = document.createElement("p");
@@ -134,5 +165,3 @@ addButtons.forEach((button, index) => {
         taskList.appendChild(listItem);
     });
 });
-
-
